@@ -18,13 +18,13 @@ export default class ExercisesList extends Component {
     constructor(props) {
         super(props)    
         this.deleteExercise = this.deleteExercise.bind(this);
-        this.state = {exercise: []};
+        this.state = {exercises: []};
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/exercises/')
+        axios.get('http://localhost:3001/exercises/')
         .then(response => {
-            this.setState({exercise: response.data})
+            this.setState({exercises: response.data})
         })
         .catch(error => {
             console.log(error)
@@ -32,16 +32,16 @@ export default class ExercisesList extends Component {
     }
 
     deleteExercise(id) {
-        axios.delete('http://localhost:5000/exercises/'+id)
+        axios.delete('http://localhost:3001/exercises/'+id)
         .then(response => { console.log(response.data) })
 
         this.setState({
-            exercise: this.state.exercise.filter(el => el._id !== id)
+            exercises: this.state.exercises.filter(el => el._id !== id)
         })
     }
 
     exerciseList() {
-        return this.state.exercise.map(currentExercise => {
+        return this.state.exercises.map(currentExercise => {
             return <Exercise exercise={currentExercise} deleteExercise={this.deleteExercise()} key={currentExercise._id} />
         })
     }
