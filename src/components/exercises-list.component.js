@@ -17,7 +17,6 @@ const Exercise = props => (
 export default class ExercisesList extends Component {
     constructor(props) {
         super(props)    
-        this.deleteExercise = this.deleteExercise.bind(this);
         this.state = {exercises: []};
     }
 
@@ -31,7 +30,7 @@ export default class ExercisesList extends Component {
         })
     }
 
-    deleteExercise(id) {
+    deleteExercise = (id) => {
         axios.delete('http://localhost:3001/exercises/'+id)
         .then(response => { console.log(response.data) })
 
@@ -42,13 +41,13 @@ export default class ExercisesList extends Component {
 
     exerciseList() {
         return this.state.exercises.map(currentExercise => {
-            return <Exercise exercise={currentExercise} deleteExercise={this.deleteExercise()} key={currentExercise._id} />
+            return <Exercise exercise={currentExercise} deleteExercise={this.deleteExercise} key={currentExercise._id} />
         })
     }
 
     render() {
         return (
-            <dib>
+            <div>
                 <h3>Logged Exercises</h3>
                 <table className="table">
                     <thead className="thead-light">
@@ -64,7 +63,7 @@ export default class ExercisesList extends Component {
                         { this.exerciseList() }
                     </tbody>
                 </table>
-            </dib>
+            </div>
         )
     }
 }
